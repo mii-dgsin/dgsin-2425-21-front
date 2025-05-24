@@ -1,0 +1,11 @@
+<!-- src/app/components/chart/chart.component.html -->
+<canvas
+  baseChart
+  [data]="chartData"
+  [options]="chartOptions"
+  [type]="'bar'">
+</canvas>
+
+<div class="text-end mt-2" *ngIf="lastUpdated">
+  Última actualización: {{ lastUpdated | date:'medium' }}
+</div>

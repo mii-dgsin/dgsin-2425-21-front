@@ -1,0 +1,46 @@
+# .gcloudignore
+
+# Ignorar archivos de configuración locales
+.env
+*.env
+
+# Ignorar dependencias locales
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+
+# Ignorar archivos de pruebas y documentación
+coverage/
+tests/
+__tests__/
+docs/
+*.md
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar el propio .gcloudignore
+.gcloudignore
+
+# Ignorar otras configuraciones locales
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# Ignorar archivos temporales
+*.log
+tmp/
+temp/
+
+# Ignorar caché de Angular
+.angular/
+
+# Ignorar todo el código fuente que no necesitas subir
+#src/
+
+# Ignorar Git
+.git/
