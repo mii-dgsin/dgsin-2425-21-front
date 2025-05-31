@@ -8,17 +8,38 @@
 
     <!-- Menú de la derecha -->
     <div class="d-flex align-items-center">
-      <!-- Enlace About (siempre visible) -->
       <a class="nav-link d-inline me-3" routerLink="/about">About</a>
 
-      <!-- Si NO está logueado, mostrar solo Login -->
-      <ng-container *ngIf="!auth.isLoggedIn()">
-        <a class="nav-link d-inline" routerLink="/login">Login</a>
+      <!-- Si está autenticado, mostramos enlaces según rol -->
+      <ng-container *ngIf="auth.isLoggedIn()">
+        <!-- Solo admin ve “Admin Panel” -->
+        <a
+          class="nav-link d-inline me-3"
+          *ngIf="auth.getRole() === 'admin'"
+          routerLink="/admin"
+          >Admin Panel</a
+        >
+
+        <!-- Admin y moderador ven “Moderator Dashboard” -->
+        <a
+          class="nav-link d-inline me-3"
+          *ngIf="auth.getRole() === 'admin' || auth.getRole() === 'moderator'"
+          routerLink="/moderator-dashboard"
+          >Moderator Dashboard</a
+        >
+
+        <!-- Cualquiera autenticado ve “Logout” -->
+        <a
+          class="nav-link d-inline text-danger"
+          href="#"
+          (click)="logout()"
+          >Logout</a
+        >
       </ng-container>
 
-      <!-- Si SÍ está logueado, mostrar Logout -->
-      <ng-container *ngIf="auth.isLoggedIn()">
-        <a class="nav-link d-inline text-danger" href="#" (click)="logout()">Logout</a>
+      <!-- Si NO está autenticado, solo mostrar “Login” -->
+      <ng-container *ngIf="!auth.isLoggedIn()">
+        <a class="nav-link d-inline" routerLink="/login">Login</a>
       </ng-container>
     </div>
   </div>

@@ -10,6 +10,7 @@ export interface LoginResponse {
   expiresIn: number;
   username: string;
   email: string;
+  role: string;   // <--- el backend ahora devuelve el role
 }
 
 @Injectable({ providedIn: 'root' })
@@ -27,11 +28,11 @@ export class AuthService {
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(res => {
-        // Guardar token en localStorage
         localStorage.setItem('jwt_token', res.token);
         localStorage.setItem('jwt_expires', (Date.now() + res.expiresIn * 1000).toString());
         localStorage.setItem('username', res.username);
         localStorage.setItem('email', res.email);
+        localStorage.setItem('role', res.role);  // <--- guardamos el rol
       })
     );
   }
@@ -41,16 +42,21 @@ export class AuthService {
     localStorage.removeItem('jwt_expires');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
+    localStorage.removeItem('role');
   }
 
   isLoggedIn(): boolean {
     const token = localStorage.getItem('jwt_token');
     const expires = localStorage.getItem('jwt_expires');
-    if (!token || !expires) return false;
-    return Date.now() < +expires;
+    return !!token && Date.now() < +expires!;
   }
 
   getToken(): string | null {
     return localStorage.getItem('jwt_token');
+  }
+
+  // Nuevo: obtener el rol del usuario
+  getRole(): string | null {
+    return localStorage.getItem('role');
   }
 }
