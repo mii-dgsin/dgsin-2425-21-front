@@ -1,10 +1,25 @@
+<!-- src/app/components/header/header.component.html -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Logo a la izquierda -->
+    <a class="navbar-brand" routerLink="/">
       <img src="https://via.placeholder.com/100x40?text=Logo" alt="Logo" />
-  
-      <div>
-        <a class="nav-link d-inline me-3" href="#">About</a>
-        <a class="nav-link d-inline" href="#">Login</a>
-      </div>
+    </a>
+
+    <!-- Menú de la derecha -->
+    <div class="d-flex align-items-center">
+      <!-- Enlace About (siempre visible) -->
+      <a class="nav-link d-inline me-3" routerLink="/about">About</a>
+
+      <!-- Si NO está logueado, mostrar solo Login -->
+      <ng-container *ngIf="!auth.isLoggedIn()">
+        <a class="nav-link d-inline" routerLink="/login">Login</a>
+      </ng-container>
+
+      <!-- Si SÍ está logueado, mostrar Logout -->
+      <ng-container *ngIf="auth.isLoggedIn()">
+        <a class="nav-link d-inline text-danger" href="#" (click)="logout()">Logout</a>
+      </ng-container>
     </div>
-  </nav>
+  </div>
+</nav>
