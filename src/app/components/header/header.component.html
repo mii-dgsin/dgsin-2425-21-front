@@ -8,10 +8,16 @@
 
     <!-- Menú de la derecha -->
     <div class="d-flex align-items-center">
+      <!-- Enlace “About” siempre visible -->
       <a class="nav-link d-inline me-3" routerLink="/about">About</a>
 
-      <!-- Si está autenticado -->
-      <ng-container *ngIf="auth.isLoggedIn()">
+      <!-- Si NO está autenticado: mostramos “Login” -->
+      <ng-container *ngIf="!auth.isLoggedIn(); else loggedInTemplate">
+        <a class="nav-link d-inline" routerLink="/login">Login</a>
+      </ng-container>
+
+      <!-- Si está autenticado: mostramos enlaces y menú desplegable -->
+      <ng-template #loggedInTemplate>
         <!-- Enlace a Panel Moderador (solo admin y moderator) -->
         <a
           *ngIf="auth.getRole() === 'admin' || auth.getRole() === 'moderator'"
@@ -28,15 +34,40 @@
           >Admin Panel</a
         >
 
-        <a class="nav-link d-inline text-danger" href="#" (click)="logout()"
-          >Logout</a
-        >
-      </ng-container>
-
-      <!-- Si NO está autenticado -->
-      <ng-container *ngIf="!auth.isLoggedIn()">
-        <a class="nav-link d-inline" routerLink="/login">Login</a>
-      </ng-container>
+        <!-- Desplegable de perfil -->
+        <div class="dropdown">
+          <a
+            class="nav-link dropdown-toggle d-inline"
+            href="#"
+            id="profileDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-person-circle me-1"></i>
+            {{ getUsername() || "Profile" }}
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="profileDropdown"
+          >
+            <li>
+              <a class="dropdown-item" routerLink="/settings">Settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/profile">Profile</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <button class="dropdown-item text-danger" (click)="logout()">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
     </div>
   </div>
 </nav>

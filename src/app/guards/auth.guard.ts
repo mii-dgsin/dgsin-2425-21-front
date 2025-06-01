@@ -9,20 +9,16 @@ import {
 import { AuthService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class RoleGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree {
-    const expectedRoles: string[] = route.data['roles'];
-    const userRole = this.auth.getRole();
-
-    if (!userRole || !expectedRoles.includes(userRole)) {
-      return this.router.createUrlTree(['/']);
+    if (!this.auth.isLoggedIn()) {
+      return this.router.createUrlTree(['/auth/login']);
     }
-
     return true;
   }
 }
