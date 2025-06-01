@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
 
   // Login (sin guard)
-  { path: 'auth/login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
 
   // Perfil (solo si está logueado)
   {
