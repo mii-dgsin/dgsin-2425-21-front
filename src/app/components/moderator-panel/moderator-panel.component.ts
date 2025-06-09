@@ -91,10 +91,7 @@ export class ModeratorPanelComponent implements OnInit {
     if (n >= 1 && n <= this.totalPages) this.currentPage = n;
   }
 
-  onStatusChange(reportId: string, event: Event) {
-    const select = event.target as HTMLSelectElement;
-    const newStatus = select.value as ModReport['status'];
-
+  onStatusChange(reportId: string, newStatus: ModReport['status']) {
     this.modSvc.updateStatus(reportId, newStatus).subscribe({
       next: () => {
         const target = this.reports.find(r => r._id === reportId);
