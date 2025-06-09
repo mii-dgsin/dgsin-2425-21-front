@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule }      from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { ReportService, BugReport } from '../services/report.service';
-import { AuthService }       from '../services/auth.service';
+import { ReportService, BugReport } from '../../services/report.service';
+import { AuthService }       from '../../services/auth.service';
 
 @Component({
   selector: 'app-report-list',

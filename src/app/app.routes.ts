@@ -10,9 +10,9 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { ModeratorPanelComponent } from './components/moderator-panel/moderator-panel.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
-import { ReportDetailComponent } from './report-detail/report-detail.component';
-import { ReportFormComponent } from './report-form/report-form.component';
-import { ReportListComponent } from './report-list/report-list.component';
+import { ReportDetailComponent } from './components/report-detail/report-detail.component';
+import { ReportFormComponent } from './components/report-form/report-form.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
 
 export const routes: Routes = [
   // Página de inicio (home)
@@ -23,7 +23,7 @@ export const routes: Routes = [
 
   // register (sin guard)
   { path: 'register', component: RegisterComponent },
-  
+
   // Perfil (solo si está logueado)
   {
     path: 'profile',

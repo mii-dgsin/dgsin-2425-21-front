@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReportService, BugReport } from '../services/report.service';
-import { AuthService } from '../services/auth.service';
-import { NavigationService } from '../services/navigation.service';
+import { ReportService, BugReport } from '../../services/report.service';
+import { AuthService } from '../../services/auth.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-report-detail',
