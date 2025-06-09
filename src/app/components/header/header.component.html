@@ -18,6 +18,13 @@
 
       <!-- Si está autenticado: mostramos enlaces y menú desplegable -->
       <ng-template #loggedInTemplate>
+        <!-- Enlace a Reportes de Bugs (todos los usuarios) -->
+        <a
+          class="nav-link d-inline me-3"
+          routerLink="/reports"
+          >Reportes de Bugs</a
+        >
+
         <!-- Enlace a Panel Moderador (solo admin y moderator) -->
         <a
           *ngIf="auth.getRole() === 'admin' || auth.getRole() === 'moderator'"

@@ -1,0 +1,20 @@
+<!-- src/app/report-detail/report-detail.component.html -->
+<div class="container mt-4">
+  <h2 class="break-word">{{ report?.title }}</h2>
+  <p><strong>Tipo:</strong> {{ report?.type }}</p>
+  <p><strong>Estado:</strong> {{ report?.status }}</p>
+  <p><strong>Creado:</strong> {{ report?.createdAt | date:'short' }}</p>
+  <p><strong>Actualizado:</strong> {{ report?.updatedAt | date:'short' }}</p>
+
+  <hr />
+
+  <div class="border p-3 bg-light rounded">
+    <p class="break-word">{{ report?.description }}</p>
+  </div>
+
+  <div class="mt-3">
+    <button class="btn btn-secondary me-2" (click)="goBack()">Volver</button>
+    <button class="btn btn-outline-primary me-2" (click)="editReport()">Editar</button>
+    <button *ngIf="canEditOrDelete" class="btn btn-outline-danger" (click)="deleteReport()">Borrar</button>
+  </div>
+</div>

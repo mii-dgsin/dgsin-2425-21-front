@@ -3,12 +3,16 @@ import { Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ModeratorPanelComponent } from './components/moderator-panel/moderator-panel.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
+import { ReportFormComponent } from './report-form/report-form.component';
+import { ReportListComponent } from './report-list/report-list.component';
 
 export const routes: Routes = [
   // Página de inicio (home)
@@ -17,6 +21,9 @@ export const routes: Routes = [
   // Login (sin guard)
   { path: 'login', component: LoginComponent },
 
+  // register (sin guard)
+  { path: 'register', component: RegisterComponent },
+  
   // Perfil (solo si está logueado)
   {
     path: 'profile',
@@ -37,6 +44,30 @@ export const routes: Routes = [
     component: AdminPanelComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['admin'] },
+  },
+
+  {
+    path: 'reports',
+    component: ReportListComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'reports/create',
+    component: ReportFormComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'reports/:id/edit',
+    component: ReportFormComponent,
+    canActivate: [AuthGuard]
+  },
+  
+  {
+    path: 'reports/:id',
+    component: ReportDetailComponent,
+    canActivate: [AuthGuard]
   },
 
   // Panel de Moderator (rol “moderator” ó “admin”)

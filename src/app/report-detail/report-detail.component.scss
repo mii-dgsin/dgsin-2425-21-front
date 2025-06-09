@@ -1,0 +1,18 @@
+.container {
+  max-width: 1280px;
+}
+
+.break-word {
+  word-break: break-word;
+  white-space: normal;
+}
+
+.description-box {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

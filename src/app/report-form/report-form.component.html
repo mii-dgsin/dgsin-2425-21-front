@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h3>{{ id ? 'Editar' : 'Nuevo' }} Reporte</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label class="form-label">Título</label>
+      <input formControlName="title" class="form-control" />
+      <div *ngIf="form.get('title')!.invalid && form.touched" class="text-danger">
+        Mínimo 3 caracteres.
+      </div>
+      <ul *ngIf="suggestions.length" class="list-group mt-1">
+        <li *ngFor="let s of suggestions" class="list-group-item list-group-item-action"
+            (click)="selectSuggestion(s)">
+          {{ s.title }}
+        </li>
+      </ul>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <textarea formControlName="description" class="form-control" rows="4"></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Tipo</label>
+      <select formControlName="type" class="form-select">
+        <option value="bug">Bug</option>
+        <option value="feature">Feature</option>
+      </select>
+    </div>
+    <button class="btn btn-success" [disabled]="form.invalid">
+      {{ id ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button class="btn btn-secondary ms-2" (click)="cancel()" type="button">
+      Cancelar
+    </button>
+  </form>
+</div>

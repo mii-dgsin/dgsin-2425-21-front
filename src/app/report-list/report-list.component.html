@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <h3>Listado de Bugs Reportados</h3>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-primary" (click)="goToCreate()">Nuevo Reporte</button>
+    <div>Página {{ currentPage }} de {{ totalPages }}</div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table class="table table-bordered table-striped custom-table" *ngIf="reports.length; else none">
+    <thead>
+      <tr>
+        <th (click)="changeSorting('title')"    style="cursor:pointer">
+          Título <span *ngIf="sortColumn==='title'">{{ sortAsc?'▲':'▼' }}</span>
+        </th>
+        <th (click)="changeSorting('type')"     style="cursor:pointer">
+          Tipo <span *ngIf="sortColumn==='type'">{{ sortAsc?'▲':'▼' }}</span>
+        </th>
+        <th (click)="changeSorting('status')"   style="cursor:pointer">
+          Estado <span *ngIf="sortColumn==='status'">{{ sortAsc?'▲':'▼' }}</span>
+        </th>
+        <th (click)="changeSorting('createdAt')" style="cursor:pointer">
+          Fecha <span *ngIf="sortColumn==='createdAt'">{{ sortAsc?'▲':'▼' }}</span>
+        </th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Filas con datos -->
+      <tr *ngFor="let r of paginatedReports">
+        <td (click)="goToDetail(r._id)" style="cursor:pointer" [title]="r.title" class="truncate">{{ r.title }}</td>
+        <td [title]="r.type" class="truncate">{{ r.type }}</td>
+        <td [title]="r.status" class="truncate">{{ r.status }}</td>
+        <td>{{ r.createdAt | date:'short' }}</td>
+        <td>
+          <button *ngIf="r.reporterId===currentUserId||isAdminOrMod"
+                  class="btn btn-sm btn-outline-secondary me-1"
+                  (click)="goToEdit(r._id)">Editar</button>
+          <button *ngIf="r.reporterId===currentUserId||isAdminOrMod"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="delete(r._id)">Borrar</button>
+        </td>
+      </tr>
+      <!-- Filas vacías para rellenar hasta pageSize -->
+      <tr *ngFor="let _ of emptyRows" class="empty-row">
+        <td colspan="5">&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #none>
+    <p class="text-muted">No hay reportes aún.</p>
+  </ng-template>
+
+  <nav aria-label="Page navigation" class="mt-3">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage===1">
+        <a class="page-link" (click)="prevPage()">Anterior</a>
+      </li>
+      <li class="page-item" *ngFor="let p of pages" [class.active]="currentPage===p">
+        <a class="page-link" (click)="goToPage(p)">{{ p }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage===totalPages">
+        <a class="page-link" (click)="nextPage()">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+</div>
