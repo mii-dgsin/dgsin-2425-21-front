@@ -5,7 +5,9 @@
     {{ errorMsg }}
   </div>
 
-  <table class="table table-hover table-bordered table-striped mt-4" *ngIf="users.length > 0">
+  <!-- Tabla de usuarios -->
+  <h4>Usuarios Registrados</h4>
+  <table class="table table-hover table-bordered mt-4" *ngIf="users.length > 0">
     <thead class="table-light">
       <tr>
         <th>Usuario</th>
@@ -20,22 +22,40 @@
         <td>{{ u.username }}</td>
         <td>{{ u.email }}</td>
         <td>
-          <select
-            class="form-select form-select-sm"
-            [(ngModel)]="u.role"
-            (change)="onChangeRole(u._id, u.role)">
-            <option value="user">Usuario</option>
-            <option value="moderator">Moderador</option>
-            <option value="admin">Administrador</option>
-          </select>
+          <ng-container *ngIf="u.role !== 'admin'; else fixedAdmin">
+            <select class="form-select form-select-sm"
+                    [(ngModel)]="u.role"
+                    (change)="onChangeRole(u._id, u.role)">
+              <option value="user">Usuario</option>
+              <option value="moderator">Moderador</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </ng-container>
+          <ng-template #fixedAdmin>
+            <span class="badge bg-secondary">Administrador</span>
+          </ng-template>
         </td>
         <td>{{ u.createdAt | date:'short' }}</td>
-        <td>
-          <!-- Opcional: botón para suspender usuario, eliminar, etc. -->
-        </td>
+        <td></td>
       </tr>
     </tbody>
   </table>
 
   <p *ngIf="users.length === 0" class="text-muted">No hay usuarios registrados.</p>
+
+  <!-- Gráfico de países -->
+  <h4 class="mt-5">Visitantes por País</h4>
+  <div *ngIf="chartData.length > 1; else noData">
+    <google-chart 
+      [type]="chartType"
+      [data]="chartData"
+      [options]="chartOptions"
+      [width]="chartWidth"
+      [height]="chartHeight">
+    </google-chart>
+  </div>
+
+  <ng-template #noData>
+    <p class="text-muted">Aún no hay visitas registradas.</p>
+  </ng-template>
 </div>

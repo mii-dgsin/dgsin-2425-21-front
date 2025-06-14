@@ -11,7 +11,11 @@ export interface User {
   email: string;
   role: 'user' | 'moderator' | 'admin';
   createdAt: string;
-  suspendedUntil?: string;
+}
+
+export interface VisitorCountry {
+  country: string;
+  count: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,12 +24,15 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  // Esto disparará GET /api/v1/admin/users con el interceptor
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
-  updateUserRole(userId: string, newRole: string) {
+  updateUserRole(userId: string, newRole: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/users/${userId}/role`, { role: newRole });
+  }
+
+  getVisitorCountries(): Observable<VisitorCountry[]> {
+    return this.http.get<VisitorCountry[]>(`${this.apiUrl}/visitorCountries`);
   }
 }
