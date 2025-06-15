@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -18,6 +19,9 @@ export const routes: Routes = [
   // Página de inicio (home)
   { path: '', component: HomeComponent },
 
+  // Página de about (about)
+  { path: 'about', component: AboutComponent },
+  
   // Login (sin guard)
   { path: 'login', component: LoginComponent },
 
