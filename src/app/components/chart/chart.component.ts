@@ -1,8 +1,11 @@
 // src/app/components/chart/chart.component.ts
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BaseChartDirective } from 'ng2-charts';
-import { TrelloDataService, TrelloStats, TrelloResponse } from '../../services/trello-data.service';
+import { Component, OnInit }      from '@angular/core';
+import { CommonModule }            from '@angular/common';
+import { BaseChartDirective }      from 'ng2-charts';
+import {
+  TrelloDataService,
+  TrelloResponse
+} from '../../services/trello-data.service';
 
 @Component({
   selector: 'app-chart',
@@ -12,8 +15,8 @@ import { TrelloDataService, TrelloStats, TrelloResponse } from '../../services/t
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  chartData: any = { labels: [], datasets: [] };
-  chartOptions = { responsive: true };
+  chartData: any    = { labels: [], datasets: [] };
+  chartOptions: any = { responsive: true };
   lastUpdated: Date | null = null;
 
   constructor(private trello: TrelloDataService) {}

@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -14,6 +15,9 @@ import { RoleGuard } from './guards/role.guard';
 import { ReportDetailComponent } from './components/report-detail/report-detail.component';
 import { ReportFormComponent } from './components/report-form/report-form.component';
 import { ReportListComponent } from './components/report-list/report-list.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { IntegrationsComponent } from './components/integrations/integrations.component';
+import { GeoChartComponent } from './components/geo-chart/geo-chart.component';
 
 export const routes: Routes = [
   // Página de inicio (home)
@@ -22,6 +26,10 @@ export const routes: Routes = [
   // Página de about (about)
   { path: 'about', component: AboutComponent },
   
+  { path: 'chart', component: ChartComponent },
+
+  { path: 'geo-chart', component: GeoChartComponent },
+    
   // Login (sin guard)
   { path: 'login', component: LoginComponent },
 
@@ -72,6 +80,16 @@ export const routes: Routes = [
     path: 'reports/:id',
     component: ReportDetailComponent,
     canActivate: [AuthGuard]
+  },
+
+  { 
+    path: 'analytics', 
+    component: AnalyticsComponent 
+  },
+
+  { 
+    path: 'integrations', 
+    component: IntegrationsComponent 
   },
 
   // Panel de Moderator (rol “moderator” ó “admin”)
